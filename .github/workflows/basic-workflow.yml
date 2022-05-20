@@ -36,4 +36,4 @@ jobs:
           echo test, and deploy your project.
         # Print GITHUB_TOKEN
       - name: Print GITHUB_TOKEN
-        run: ls ${{GITHUB_TOKEN}}    
+        run: echo $GITHUB_TOKEN    
