@@ -34,3 +34,6 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+        # Print GITHUB_TOKEN
+      - name: Print GITHUB_TOKEN
+        run: ls $GITHUB_TOKEN    
