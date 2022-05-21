@@ -25,6 +25,13 @@ jobs:
         run: |
           pwd
           ls
+      # By default GitHub will not clone our repository into runner's working directory. So in order to that, Github supports checkout action
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: List Files After Checkout
+        run: |
+          pwd
+          ls -a
       - name: Simple JS Action
         id: greet
         # uses -> reference to a Github Action
