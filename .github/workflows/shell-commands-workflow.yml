@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [ main ]
     # So some events have something called activity types (for example pull request can have many activity types like opened, closed and so on)
-    types: [closed, assigned, opened, reopen]
+    types: [closed, assigned, opened, reopened]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:

@@ -6,6 +6,18 @@ name: Actions Workflow
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
+    branches: 
+      - master
+      - 'feature/*' # matches with feature/feat-a 
+      - 'feature/**' # matches with feature/any/feat-a
+      - '!feature/featC'
+    # branches-ignore:
+       # - develop
+    tags:
+      - v1.*
+    # only run the workflow when there is any changes on JS files  
+    paths:  
+      - '**.js'
   pull_request:
     branches: [ main ]
     # So some events have something called activity types (for example pull request can have many activity types like opened, closed and so on)
@@ -33,6 +45,7 @@ jobs:
       # $GITHUB_SHA: commit id of the specific commit that triggered this workflow
       # $GITHUB_REPOSITORY: repository name
       # $GITHUB_WORKSPACE : working directory on runner host
+      # $GITHUB_REF : the branch that the workflow working with
         run: |
           pwd
           ls -a
