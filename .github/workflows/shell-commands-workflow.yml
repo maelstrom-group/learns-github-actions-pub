@@ -15,9 +15,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "run-shell-command"
   run-shell-command:
-    # The type of runner that the job will run on
+    # Use Linux runner to run this job
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -38,3 +37,13 @@ jobs:
           import platform
           print(platform.processor())
         shell: python
+  run-windows-command: 
+    # Use windows runner to run this job
+    runs-on: windows-latest
+    steps:
+      - name: Run windows commands using Powershell
+        run: Get-location
+      - name: Run windows commands using bash shell
+        run: pwd
+        shell: bash
+                
