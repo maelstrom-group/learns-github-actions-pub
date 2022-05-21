@@ -21,6 +21,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: List Files
+        run: |
+          pwd
+          ls
       - name: Simple JS Action
         id: greet
         # uses -> reference to a Github Action
