@@ -6,6 +6,8 @@ name: Shell Commands Workflow
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
+    branches: 
+      - master
   pull_request:
     branches: [ main ]
     # So some events have something called activity types (for example pull request can have many activity types like opened, closed and so on)
