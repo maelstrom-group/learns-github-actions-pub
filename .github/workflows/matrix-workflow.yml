@@ -20,7 +20,7 @@ jobs:
         include:
           - os: ubuntu-latest
             node_version: 8
-            # add extra configuration into matrix contexts for certain  matrix configurations.
+            # add extra info into matrix contexts for a certain matrix configuration.
             is_ubuntu_8: "true"
         exclude:
           - os: ubuntu-latest
