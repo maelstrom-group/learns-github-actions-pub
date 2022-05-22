@@ -1,0 +1,46 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Context Workflow
+
+# on keyword -> defines events that will trigger the workflow
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: 
+      - develop
+
+jobs:
+  dump_contexts_to_log:
+    runs-on: ubuntu-latest
+    # if: github.event_name == 'pull_request'
+    # timeout-minutes -> the maximum number of minutes that the job can take
+    timeout-minutes: 360
+    steps:
+      - name: Dump GitHub context
+        id: github_context_step
+        run: eccho '${{ toJSON(github) }}'
+        # allow subsequent steps continue even if this step is failed
+        continue-on-error: true
+      - name: Dump job context
+        # failure(): a status function that make this step run even if the previous step has failed.
+        if: failure()
+        run: echo '${{ toJSON(job) }}'
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
+      - name: Dump runner context
+        # always(): a status function that make this step always run even if anything has failed in the previous steps.
+        if: always()
+        run: echo '${{ toJSON(runner) }}'
+      - name: Dump strategy context
+        run: echo '${{ toJSON(strategy) }}'
+      - name: Dump matrix context
+        run: echo '${{ toJSON(matrix) }}' 
+  functions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test GitHub Function 
+        run: |
+          echo ${{ contains('Hello', 'll') }}
+          echo ${{ startsWith('Hello', 'he') }}
+          echo ${{ endsWith('Hello', 'lo') }}
+          echo ${{ format('Hello {0} {1} {2}', 'World', '!', '!') }}

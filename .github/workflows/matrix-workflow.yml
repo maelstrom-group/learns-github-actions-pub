@@ -1,0 +1,50 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Matrix Workflow
+
+# on keyword -> defines events that will trigger the workflow
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: 
+      - develop
+
+jobs:
+  node-version:
+    # use strategy to set up a matrix of environments.
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        #  running this job not only once but three times for each one of these versions
+        node_version: [6, 8, 10]
+        include:
+          - os: ubuntu-latest
+            node_version: 8
+            # add extra info into matrix contexts for a certain matrix configuration.
+            is_ubuntu_8: "true"
+        exclude:
+          - os: ubuntu-latest
+            node_version: 6
+          - os: macos-latest
+            node_version: 8
+      # if one of these job fails, all other jobs that are running in this matrix will stop.  
+      fail-fast: true
+      # limit the number of parallel jobs in this matrix.
+      max-parallel: 3
+    # use matrix context to refers to current running os in the matrix
+    runs-on: ${{ matrix.os }}
+    env:
+      IS_UBUNTU_8: ${{ matrix.is_ubuntu_8 }}
+    steps:
+      - name: Log node version
+        run: node -v   
+      - name: Setup node enviroment
+        uses: actions/setup-node@v3
+        with:
+          # use matrix context to refers to current node_version in the matrix
+          node-version: ${{ matrix.node_version }}
+      - name: Log node version
+        run: |
+          node -v
+          echo $IS_UBUNTU_8      
+                     
