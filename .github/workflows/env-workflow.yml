@@ -38,8 +38,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Default ENV Variables 
-        env:
-          STEP_ENV:  Available to only this step
         run: |
           echo "HOME: ${HOME}"
           echo "GITHUB_WORKFLOW: ${GITHUB_WORKFLOW}"
