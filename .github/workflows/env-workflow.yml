@@ -12,7 +12,7 @@ on:
 env:
   # secret object -> contains all encrypting env variables
   # GITHUB_TOKEN: a secret that is automatically available on GitHub workflows, this token can be used to access GitHub's API or push something to the repository
-  WF_ENV: {{ secrets.WF_ENV }}
+  WF_ENV: ${{ secrets.WF_ENV }}
  
 jobs:
   create_issue:
