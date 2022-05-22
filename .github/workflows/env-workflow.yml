@@ -7,14 +7,11 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: 
-      - develop
-permissions:
-    contents: write
-    packages: write      
+      - develop     
 # env keyword -> defines env variables that available in all jobs in the workflow
 env:
   # secret object -> contains all encrypting env variables
-  # GITHUB_TOKEN: a secret that is automatically available on GitHub workflows, this token can be used to access GitHub's API that requires authentication
+  # GITHUB_TOKEN: a secret that automatically available on GitHub workflows, this token can be used to access GitHub's API that requires authentication
   WF_ENV: ${{ secrets.WF_ENV }}
 
  
@@ -56,7 +53,7 @@ jobs:
   log-env:
     # Use Linux runner to run this job
     runs-on: ubuntu-latest
-    # defines env variables that can only be accessed within a specific job.
+    # defines env variables that can only be accessed within this job.
     env:
       JOB_ENV: Available to all steps in our log-env job
     # steps keyword -> represent a sequence of tasks that will be executed as part of the job
