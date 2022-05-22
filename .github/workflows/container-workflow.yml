@@ -1,0 +1,25 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Container Workflow
+
+# on keyword -> defines events that will trigger the workflow
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: 
+      - develop
+
+jobs:
+  node-docker:
+    runs-on: ubuntu-latest
+    container: 
+      image: node:14-alpine3.15
+    # any steps that we defines will run inside of this container and not directly in the host system
+    steps:  
+      # Log Node version of the container not the version that comes with our GitHub virtual machine.
+      - name: Log node version
+        run:  |
+          node -v
+          cat /etc/os-release
+      
+                     
