@@ -17,17 +17,34 @@ jobs:
         os: [macos-latest, ubuntu-latest, windows-latest]
         #  running this job not only once but three times for each one of these versions
         node_version: [6, 8, 10]
+        include:
+          - os: ubuntu-latest
+            node_version: 8
+            # add extra configuration into matrix contexts for certain  matrix configurations.
+            is_ubuntu_8: "true"
+        exclude:
+          - os: ubuntu-latest
+            node_version: 6
+          - os: macos-latest
+            node_version: 8
       # if one of these job fails, all other jobs that are running in this matrix will stop.  
       fail-fast: true
       # limit the number of parallel jobs in this matrix.
-      max-parallel: 0
+      max-parallel: 3
+    # use matrix context to refers to current running os in the matrix
     runs-on: ${{ matrix.os }}
+    env:
+      IS_UBUNTU_8: ${{ matrix.is_ubuntu_8 }}
     steps:
       - name: Log node version
         run: node -v   
       - name: Setup node enviroment
         uses: actions/setup-node@v3
         with:
+          # use matrix context to refers to current node_version in the matrix
           node-version: ${{ matrix.node_version }}
       - name: Log node version
-        run: node -v         
+        run: |
+          node -v
+          echo $IS_UBUNTU_8      
+                     
