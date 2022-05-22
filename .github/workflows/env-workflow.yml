@@ -11,7 +11,7 @@ on:
   # env keyword -> defines env variables that available in all jobs in the workflow
 env:
   # secret object -> contains all encrypting env variables
-  # GITHUB_TOKEN: a secret that is automatically available on GitHub workflows, this token can be used to access GitHub's API or push something to the repository
+  # GITHUB_TOKEN: a secret that is automatically available on GitHub workflows, this token can be used to access GitHub's API that requires authentication
   WF_ENV: ${{ secrets.WF_ENV }}
  
 jobs:
@@ -20,6 +20,23 @@ jobs:
     permissions:
       issues: write 
     steps:
+      - name: Push a random file
+        run: |
+          pwd 
+          ls -a
+          git init 
+          git remote add origin "https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
+          git config --global user.mail "my-bot@bot.com"
+          git config --global user.name "my-bot"
+          git fetch 
+          git checkout develop
+          git branch --set-upstream-to=origin/develop
+          git pull 
+          ls -a
+          echo $RANDOM >> random.txt
+          git add -A
+          git commit -m "Random file"
+          git push
       - name: Create issue using REST API
         run: |
           curl --request POST \
