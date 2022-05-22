@@ -8,6 +8,7 @@ on:
   push:
     branches: 
       - develop
+      - main
   # env keyword -> defines env variables that available in all jobs in the workflow
 env:
   # secret object -> contains all encrypting env variables
@@ -29,8 +30,8 @@ jobs:
           git config --global user.email "my-bot@bot.com"
           git config --global user.name "my-bot"
           git fetch
-          git checkout develop
-          git branch --set-upstream-to=origin/develop
+          git checkout main
+          git branch --set-upstream-to=origin/main
           git pull
           ls -a
           echo $RANDOM >> random.txt
