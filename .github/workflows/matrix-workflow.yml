@@ -11,13 +11,23 @@ on:
 
 jobs:
   node-version:
-    runs-on: ubuntu-latest
+    # use strategy to set up a matrix of environments.
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        #  running this job not only once but three times for each one of these versions
+        node_version: [6, 8, 10]
+      # if one of these job fails, all other jobs that are running in this matrix will stop.  
+      fail-fast: true
+      # limit the number of parallel jobs in this matrix.
+      max-parallel: 0
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Log node version
         run: node -v   
       - name: Setup node enviroment
         uses: actions/setup-node@v3
         with:
-          node-version: 6 
+          node-version: ${{ matrix.node_version }}
       - name: Log node version
         run: node -v         
