@@ -8,7 +8,9 @@ on:
   push:
     branches: 
       - develop
-permissions: write-all       
+permissions:
+    contents: write
+    packages: write      
 # env keyword -> defines env variables that available in all jobs in the workflow
 env:
   # secret object -> contains all encrypting env variables
